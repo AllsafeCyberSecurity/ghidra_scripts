@@ -5,7 +5,7 @@ hash_types_dict={}
 source_libs_dict={}
 symbol_hashes_dict={}
 
-conn = sqlite3.connect('sc_hashes_old.db')
+conn = sqlite3.connect('sc_hashes.db')
 c = conn.cursor()
 
 c.execute("SELECT * FROM hash_types")
