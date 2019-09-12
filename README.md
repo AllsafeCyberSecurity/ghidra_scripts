@@ -1,4 +1,4 @@
-# shellcode_hashs
+# shellcode_hashes
 
 shellcode_hashs was created inspired by a [script of the same name in flare](https://github.com/fireeye/flare-ida/tree/master/shellcode_hashes).   
 Find the name that matches the [hash](https://www.fireeye.com/blog/threat-research/2012/11/precalculated-string-hashes-reverse-engineering-shellcode.html) used in the shellcode.  
@@ -11,7 +11,7 @@ Convert with the following command:
 python sqlite2json.py
 ```
 
-## shellcode_hash.py
+## shellcode_hashes.py
 
 Open the target shellcode and execute the script.
 
