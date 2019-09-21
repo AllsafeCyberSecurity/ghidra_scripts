@@ -45,3 +45,16 @@ Color the following instructions
  * JGE
 
 ![ch03_coloring_call_jmp](https://user-images.githubusercontent.com/18203311/64575795-87596b80-d3b0-11e9-847b-f46ab6aefa4b.png)
+
+# stackstrings.py
+
+Deobfuscate stackstrings used by Godzilla Loader.
+
+### before
+![stackstrings_execute_before](https://user-images.githubusercontent.com/18203311/65371013-13fe0680-dc9a-11e9-910a-37329767a26a.png)
+
+### after
+![stackstrings_execute_after](https://user-images.githubusercontent.com/18203311/65371015-15c7ca00-dc9a-11e9-80c2-5028a8c3d03f.png)
+
+### console output
+![stackstrings_console_result](https://user-images.githubusercontent.com/18203311/65371016-16f8f700-dc9a-11e9-981c-552a7e9152a4.png)
