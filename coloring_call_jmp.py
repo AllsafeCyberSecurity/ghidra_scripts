@@ -1,28 +1,25 @@
-from ghidra.program.model.listing import CodeUnit
-from ghidra.app.plugin.core.colorizer import ColorizingService
 from java.awt import Color
 
+CALL_COLOR = Color(3,169,244)
+CONDITIONAL_COLOR = Color(205,220,57)
+
+call_color_count = 0
+conditional_color_count = 0
+
 #get all memory ranges
-ranges = currentProgram.getMemory().getAddressRanges()
-print("--------------------------------")
+addr_ranges = currentProgram.getMemory().getAddressRanges()
 
-service = state.getTool().getService(ColorizingService)
-if service is None:
-     print "Can't find ColorizingService service"
+for addr_range in addr_ranges:
+    insts = currentProgram.getListing().getInstructions(addr_range.getMinAddress(), True)
+    for inst in insts:
+        flow_type = inst.getFlowType()
+        if flow_type.isCall():
+            setBackgroundColor(inst.getAddress(), CALL_COLOR)
+            call_color_count += 1
+        elif flow_type.isConditional():
+            setBackgroundColor(inst.getAddress(), CONDITIONAL_COLOR)
+            conditional_color_count += 1
+        
 
-for r in ranges:
-    begin = r.getMinAddress()
-    length = r.getLength()
-
-    ins = getInstructionAt(begin)
-    while(ins==None):
-        ins =  getInstructionAfter(ins)
-    for i in range(length):
-        mnemonic = ins.getMnemonicString()
-        if mnemonic == "CALL":
-            service.setBackgroundColor(ins.address, ins.address, Color(3,169,244))
-        elif mnemonic == "JE" or mnemonic == "JZ" or mnemonic == "JNE" or mnemonic == "JNZ" or mnemonic == "JA" or mnemonic == "JAE" or mnemonic == "JBE" or mnemonic == "JB" or mnemonic == "JL" or mnemonic == "JLE" or mnemonic == "JG" or mnemonic == "JGE":
-            service.setBackgroundColor(ins.address, ins.address, Color(205,220,57))
-        ins =  getInstructionAfter(ins)
-        while(ins==None):
-            ins =  getInstructionAfter(ins)
+print('colored Call: {}'.format(call_color_count))
+print('colored Conditional: {}'.format(conditional_color_count))
