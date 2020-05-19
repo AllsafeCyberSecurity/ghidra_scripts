@@ -1,3 +1,7 @@
+#coloring call and jmp instruction
+# @author: Allsafe
+# @category: tools
+
 from java.awt import Color
 
 CALL_COLOR = Color(3,169,244)

@@ -1,3 +1,7 @@
+#search non zero xor
+# @author: Allsafe
+# @category: tools
+
 from ghidra.program.model.listing import CodeUnit
 
 def add_bookmark_comment(addr, text):

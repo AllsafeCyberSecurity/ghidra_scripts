@@ -1,3 +1,7 @@
+#search shellcode hashes
+# @author: Allsafe
+# @category: tools
+
 import json
 from ghidra.program.model.listing import CodeUnit
 from ghidra.util.exception import CancelledException
@@ -6,7 +10,7 @@ from ghidra.program.model.scalar import Scalar
 def add_bookmark_comment(addr, text):
 	cu = currentProgram.getListing().getCodeUnitAt(addr)
 	createBookmark(addr, "shellcode_hash", text)
-	cu.setComment(CodeUnit.PRE_COMMENT, text)
+	cu.setComment(CodeUnit.EOL_COMMENT, text)
 
 try:
     sc_hashes_file = askFile("sc_hashes.json", "sc_hashes.json").getPath()
