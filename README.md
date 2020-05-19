@@ -11,7 +11,7 @@ Convert with the following command:
 python sqlite2json.py
 ```
 
-## shellcode_hashes.py
+## shellcode_hash_search.py
 
 Open the target shellcode and execute the script.
 
