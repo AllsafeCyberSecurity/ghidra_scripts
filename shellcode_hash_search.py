@@ -29,33 +29,24 @@ def  db_search(data):
     	except:
             return -1
 
-#get all memory ranges
-ranges = currentProgram.getMemory().getAddressRanges()
+#get all instructions
+instructions = currentProgram.getListing().getInstructions(True)
+
 print("--------------------------------")
 
-for r in ranges:
-    begin = r.getMinAddress()
-    length = r.getLength()
-
-    ins = getInstructionAt(begin)
-    while(ins==None):
-        ins =  getInstructionAfter(ins)
-    for i in range(length):
-        mnemonic = ins.getMnemonicString()
-        if mnemonic == "MOV":
-            operand2 = ins.getOpObjects(1)
-            symbol_info = db_search(operand2)
-            if symbol_info != -1 and symbol_info != None:
-                text = "{} {} [{}]{}".format(ins.address, sc_hashes['hash_types'][str(symbol_info['hash_type'])], sc_hashes['source_libs'][str(symbol_info['lib_key'])], symbol_info['symbol_name'])
-                print(text)
-                add_bookmark_comment(ins.address, text)
-        elif mnemonic == "PUSH":
-            operand1 = ins.getOpObjects(0)
-            symbol_info = db_search(operand1)
-            if symbol_info != -1 and symbol_info != None:
-                text = "{} {} [{}]{}".format(ins.address, sc_hashes['hash_types'][str(symbol_info['hash_type'])], sc_hashes['source_libs'][str(symbol_info['lib_key'])], symbol_info['symbol_name'])
-                print(text)
-                add_bookmark_comment(ins.address, text)
-        ins =  getInstructionAfter(ins)
-        while(ins==None):
-            ins =  getInstructionAfter(ins)
+for ins in instructions:
+    mnemonic = ins.getMnemonicString()
+    if mnemonic == "MOV":
+        operand2 = ins.getOpObjects(1)
+        symbol_info = db_search(operand2)
+        if symbol_info != -1 and symbol_info != None:
+            text = "{} {} [{}]{}".format(ins.address, sc_hashes['hash_types'][str(symbol_info['hash_type'])], sc_hashes['source_libs'][str(symbol_info['lib_key'])], symbol_info['symbol_name'])
+            print(text)
+            add_bookmark_comment(ins.address, text)
+    elif mnemonic == "PUSH":
+        operand1 = ins.getOpObjects(0)
+        symbol_info = db_search(operand1)
+        if symbol_info != -1 and symbol_info != None:
+            text = "{} {} [{}]{}".format(ins.address, sc_hashes['hash_types'][str(symbol_info['hash_type'])], sc_hashes['source_libs'][str(symbol_info['lib_key'])], symbol_info['symbol_name'])
+            print(text)
+            add_bookmark_comment(ins.address, text)
